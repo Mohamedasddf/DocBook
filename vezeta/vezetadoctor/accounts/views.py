@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, SignUp,  UpdateUser
 from django.core.mail import send_mail
 from django.utils.timezone import localtime
-
+from django.utils.timezone import make_aware
+from datetime import datetime
 # Create your views here.
 
 
@@ -192,11 +193,6 @@ def updateprofile(request):
         })
 
 
-from django.shortcuts import render, get_object_or_404
-from django.utils.timezone import make_aware
-from datetime import datetime
-from .models import Profile
-
 # عرض الأوقات المتاحة للطبيب
 def available_times(request, slug):
     doctor = get_object_or_404(Profile, slug=slug)
@@ -218,12 +214,6 @@ def available_times(request, slug):
 
 
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils.timezone import make_aware
-from django.core.mail import send_mail
-from django.contrib.auth.decorators import login_required
-from datetime import datetime
-from .models import Profile, Appointment
 
 # حجز موعد
 @login_required
@@ -255,9 +245,7 @@ def book_appointment(request, slug, appointment_time):
 
 
 
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import Appointment
+
 
 # تأكيد الحجز
 @login_required
