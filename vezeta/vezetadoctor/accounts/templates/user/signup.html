@@ -1,0 +1,39 @@
+{% extends 'user/index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-4">
+
+    <h2>إنشاء حساب جديد</h2>  
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ form.username|as_crispy_field }}
+        </div>
+        
+        <div class="form-group">
+            {{ form.first_name|as_crispy_field }}
+        </div>
+        
+        <div class="form-group">
+            {{ form.last_name|as_crispy_field }}
+        </div>
+        
+        <div class="form-group">
+            {{ form.email|as_crispy_field }}
+        </div>
+        
+        <div class="form-group">
+            {{ form.password|as_crispy_field }}
+        </div>
+
+        <div class="form-group">
+            {{ form.confirm_password|as_crispy_field }}
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary mt-3">تسجيل</button>
+    </form>
+    <a href="{% url 'loginform' %}">لديك حساب؟ سجل الدخول هنا</a>
+</div>
+{% endblock %}

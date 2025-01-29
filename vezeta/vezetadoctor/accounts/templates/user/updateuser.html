@@ -1,0 +1,36 @@
+{% extends 'user/index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+<h2>تحديث البينات الشخصية</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        {{ form.username|as_crispy_field }}
+    </div>
+
+    <div class="form-group">
+        {{ form.first_name|as_crispy_field }}
+    </div>
+
+    <div class="form-group">
+        {{ form.last_name|as_crispy_field }}
+    </div>
+
+    <div class="form-group">
+        {{ form.password|as_crispy_field }}
+    </div>
+
+    <div class="form-group">
+        {{ form.confirm_password|as_crispy_field }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">تحديث البيانات</button>
+</form>
+</div>
+
+{% endblock %}
