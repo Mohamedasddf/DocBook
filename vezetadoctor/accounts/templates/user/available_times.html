@@ -1,0 +1,90 @@
+{% extends 'user/index.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>الأوقات المتاحة مع {{ doctor.name }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 30px;
+            padding: 15px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .time-card {
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .time-card:hover {
+            transform: translateY(-5px);
+        }
+        .time-card a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .time-card a:hover {
+            text-decoration: underline;
+        }
+        .time-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .time-item {
+            flex: 1;
+            max-width: 250px;
+        }
+        .no-times-message {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>الأوقات المتاحة مع الدكتور {{ doctor.name }}</h1>
+    <div class="time-list">
+        {% if available_times %}
+        {% for time in available_times %}
+        <div class="time-item">
+            <div class="time-card">
+                <a href="{% url 'book_appointment' doctor.slug time|date:'Y-m-d H:i:s' %}">
+                    {{ time|date:"Y-m-d h:i A" }}
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="no-times-message">
+            <h3>لا توجد أوقات متاحة لهذا الدكتور حالياً</h3>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'user/index.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الحجز</title>
+    <style>
+
+        .reservation-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .details {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .details h3 {
+            font-size: 1.5rem;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .details p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reservation-container">
+        <h1>تفاصيل الحجز</h1>
+    
+        {% if already_booked %}
+            <p>أنت بالفعل قد حجزت هذا الموعد مع الدكتور {{ appointment.doctor.name }} في {{ appointment.appointment_time|date:"Y-m-d h:i A" }}.</p>
+            <p>يرجى اختيار موعد آخر إذا كنت بحاجة إلى تغيير الموعد.</p>
+        {% else %}
+            <p>تم حجز موعد مع الدكتور {{ appointment.doctor.name }} في {{ appointment.appointment_time|date:"Y-m-d h:i A" }}.</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit">تأكيد الحجز</button>
+            </form>
+        {% endif %}
+    </div>
+
+</body>
+</html>
+{% endblock %}

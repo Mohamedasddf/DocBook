@@ -1,0 +1,425 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجز مواعيد الأطباء - إبداعي</title>
+    <!-- تحميل مكتبة Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- تحميل مكتبة Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- تحميل مكتبة Animate.css للحركات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- تحميل مكتبة Swiper.js -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- تحميل مكتبة Leaflet.js للخرائط -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* تنسيقات CSS داخلية */
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo-image {
+            width: 120px;
+            height: auto;
+        }
+
+        header nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            color: #ffdd57;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1.5s;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            animation: fadeInUp 1.5s;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            animation: fadeIn 2s;
+        }
+
+        .search-form input,
+        .search-form select,
+        .search-form button {
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .search-form button {
+            background-color: #ffdd57;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-form button:hover {
+            background-color: #ffcc00;
+        }
+
+        .doctor-info-card {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .doctor-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .doctor-info-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .doctor-details {
+            margin-left: 20px;
+        }
+
+        .doctor-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+
+        .doctor-specialty,
+        .doctor-location,
+        .doctor-fee,
+        .doctor-wait-time,
+        .doctor-hours {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .doctor-fee {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .rating {
+            color: #ffcc00;
+            font-size: 1.2rem;
+        }
+
+        .booking-button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .booking-button:hover {
+            background-color: #155ab5;
+        }
+
+        .special-offers {
+            background-color: #fff3cd;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .special-offers h2 {
+            font-size: 2rem;
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+
+        .offer-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .offer-card h3 {
+            font-size: 1.5rem;
+            color: #1a73e8;
+        }
+
+        .offer-card p {
+            color: #555;
+        }
+
+        .featured-doctors {
+            background-color: #fff;
+            padding: 60px 0;
+        }
+
+        .featured-doctors h2 {
+            font-size: 2.5rem;
+            color: #1a73e8;
+            margin-bottom: 40px;
+        }
+
+        .doctor-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .doctor-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .doctor-card h3 {
+            font-size: 1.5rem;
+            color: #1a73e8;
+            margin-bottom: 10px;
+        }
+
+        .doctor-card p {
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .doctor-card .rating {
+            color: #ffcc00;
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .doctor-card .booking-button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .doctor-card .booking-button:hover {
+            background-color: #155ab5;
+        }
+
+        footer {
+            background-color: #1a73e8;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #ffdd57;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+
+        .social-icons a:hover {
+            color: #ffdd57;
+        }
+
+        /* تنسيقات Swiper */
+        .featured-doctors-swiper {
+            padding: 20px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #1a73e8;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    {% if user.is_authenticated %}
+    <div class="container d-flex justify-content-between align-items-center">
+        <img src="{% static 'images/logo.png' %}" alt="موقع طب" class="logo-image">
+        <nav>
+
+            <a href="{% url 'updateuser' %}">تحديث المعلومات الشخصيه</a>
+            <a href="{% url 'doctor_list' %}">حجز طبيب</a>
+            <a href="{% url 'upcoming_appointments' %}">مواعيدك القادمه</a>
+            <a href="{% url 'logout' %}">تسجيل الخروج</a>
+            {% if request.user.profile %}
+               <a href="{% url 'myprofile' %}">بروفايل</a>
+               <a href="{% url 'doctor_dashboard' %}">عرض الحجوزات</a>
+            {% endif %}
+            <a href="{% url 'index' %}">الرئيسية</a>
+        </nav>
+    </div>
+    {% else %}
+    <div class="container d-flex justify-content-between align-items-center">
+        <img src="{% static 'images/logo.png' %}" alt="موقع طب" class="logo-image">
+        <nav>
+            <a href="{% url 'index' %}">الرئيسية</a>
+            <a href="{% url 'loginform' %}">تسجيل دخول</a>
+            <a href="{% url 'signup' %}">تسجيل جديد</a>
+        </nav>
+    </div>
+    {% endif %}
+</header>
+
+<!-- Hero Section -->
+<div class="hero animate__animated animate__fadeInDown">
+    <h1>حجز مواعيد الأطباء بسهولة</h1>
+    <p>ابحث عن أفضل الأطباء في مجالك وحقق راحتك مع خدماتنا الرائعة</p>
+    <form action="{% url 'search_doctor' %}" method="GET" class="search-form">
+        <input type="text" name="username" placeholder="ابحث عن طبيب" required />
+        <select name="specialization" required>
+            <option value="">جميع التخصصات</option>
+            <option value="أسنان">أسنان</option>
+            <option value="الأطباء العامين">الأطباء العامين</option>
+            <option value="قلب">قلب</option>
+            <option value="جلدية">جلدية</option>
+            <option value="طب الأطفال">طب الأطفال</option>
+            <option value="جراحة العظام">جراحة العظام</option>
+            <option value="أعصاب">أعصاب</option>
+            <!-- يمكنك إضافة المزيد من التخصصات هنا -->
+        </select>
+        <select name="location" required>
+            <option value="">اختر الموقع</option>
+            <option value="القاهرة">القاهرة</option>
+            <option value="الإسكندرية">الإسكندرية</option>
+            <option value="طنطا">طنطا</option>
+        </select>
+        <button type="submit">بحث</button>
+    </form>
+</div>
+
+
+{% block content %}
+
+{% endblock %}
+<!-- Featured Doctors Section -->
+<div class="featured-doctors">
+    <div class="container">
+        <h2 class="text-center">أفضل الأطباء المتاحين</h2>
+        <div class="swiper-container featured-doctors-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide doctor-card">
+                    <img src="https://via.placeholder.com/120" alt="طبيب">
+                    <h3>دكتور أحمد</h3>
+                    <p>طبيب عام</p>
+                    <p>الموقع: القاهرة</p>
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <button class="booking-button">حجز الآن</button>
+                </div>
+                <!-- Repeat other doctor cards here -->
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>جميع الحقوق محفوظة © 2025</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@swiper/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper('.featured-doctors-swiper', {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            480: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+            }
+        }
+    });
+</script>
+</body>
+</html>

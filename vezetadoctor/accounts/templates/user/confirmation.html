@@ -1,0 +1,61 @@
+{% extends 'user/index.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تم تأكيد الحجز</title>
+    <style>
+
+        .confirmation-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .appointment-details {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .appointment-details h3 {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .appointment-details p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="confirmation-container">
+    <h1>تم تأكيد الحجز</h1>
+    <p>تم تأكيد حجزك مع الدكتور {{ appointment.doctor.name }} في {{ appointment.appointment_time|date:"Y-m-d h:i A" }}.</p>
+
+    <div class="appointment-details">
+        <h3>تفاصيل الحجز:</h3>
+        <p><strong>الدكتور:</strong> {{ appointment.doctor.name }}</p>
+        <p><strong>الوقت المحدد:</strong> {{ appointment.appointment_time|date:"Y-m-d h:i A" }}</p>
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

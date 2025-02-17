@@ -1,0 +1,22 @@
+{% extends 'user/index.html' %}
+
+{% block content %}
+    <h1>تغيير الموعد</h1>
+    <p>الرجاء تحديد الوقت الجديد للموعد مع الدكتور {{ appointment.doctor.name }}.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="appointment_time">الوقت الجديد:</label>
+        
+        <!-- اختيار الوقت المتاح من قائمة المواعيد -->
+        <select id="appointment_time" name="appointment_time" required>
+            {% for time in available_times %}
+                <option value="{{ time }}" {% if time == appointment.appointment_time|date:"Y-m-d H:i" %}selected{% endif %}>
+                    {{ time }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">تغيير الموعد</button>
+    </form>
+{% endblock %}

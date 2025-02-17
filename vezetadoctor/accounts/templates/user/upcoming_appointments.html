@@ -1,0 +1,15 @@
+{% extends 'user/index.html' %}
+
+{% block content %}
+    <h1>مواعيدك القادمة</h1>
+    <ul>
+        {% for appointment in appointments %}
+            <li>
+                <p>الدكتور: {{ appointment.doctor.name }}</p>
+                <p>الوقت: {{ appointment.appointment_time|date:"Y-m-d h:i A" }}</p>
+             <!-- رابط لإلغاء الموعد -->
+                <a href="{% url 'cancel_appointment' appointment.id %}">إلغاء الموعد</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

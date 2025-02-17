@@ -1,0 +1,84 @@
+{% extends 'user/index.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الأطباء</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            text-align: center;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .doctor-card {
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            background: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .doctor-card:hover {
+            transform: translateY(-5px);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .card-text {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .col-md-4 {
+            flex: 1;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>قائمة الأطباء</h1>
+    <div class="row">
+        {% for doctor in doctors %}
+        <div class="col-md-4">
+            <div class="doctor-card">
+                <h5 class="card-title">{{ doctor.name }}</h5>
+                <p class="card-text">{{ doctor.specialty }}</p>
+                <a href="{% url 'available_times' doctor.slug %}" class="btn-primary">عرض المواعيد</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'user/index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>مواعيدك المؤكدة القادمة</h1>
+    
+<table border="1">
+    <thead>
+        <tr>
+            <th>وقت الموعد</th>
+            <th>اسماء المرضى</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in appointment_data %}
+            <tr>
+                <td>{{ data.appointment.appointment_time }}</td>
+                <td>{{ data.patient_name }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2">لا توجد مواعيد مؤكدة حتى الآن.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

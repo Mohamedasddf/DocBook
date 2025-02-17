@@ -1,0 +1,10 @@
+{% extends 'user/index.html' %}
+
+{% block content %}
+    <h1>إلغاء الموعد</h1>
+    <p>هل أنت متأكد أنك تريد إلغاء الموعد مع الدكتور {{ appointment.doctor.name }} في {{ appointment.appointment_time|date:"Y-m-d h:i A" }}؟</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">إلغاء الموعد</button>
+    </form>
+{% endblock %}
