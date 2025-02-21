@@ -7,12 +7,18 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, SignUp,  UpdateUser
 from django.core.mail import send_mail
+<<<<<<< HEAD:vezetadoctor/accounts/views.py
 from django.utils.timezone import localtime, make_aware
 from django.utils import timezone
 from django.conf import settings
 from datetime import datetime
 from datetime import timedelta
 
+=======
+from django.utils.timezone import localtime
+from django.utils.timezone import make_aware
+from datetime import datetime
+>>>>>>> a10639cf17b4206131cd7badbfa2bfeb8061a0b7:vezeta/vezetadoctor/accounts/views.py
 # Create your views here.
 
 
@@ -186,9 +192,12 @@ def updateprofile(request):
         })
 
 
+<<<<<<< HEAD:vezetadoctor/accounts/views.py
 
 
 
+=======
+>>>>>>> a10639cf17b4206131cd7badbfa2bfeb8061a0b7:vezeta/vezetadoctor/accounts/views.py
 # عرض الأوقات المتاحة للطبيب
 def available_times(request, slug):
     doctor = get_object_or_404(Profile, slug=slug)
@@ -208,6 +217,13 @@ def available_times(request, slug):
     # تمرير الأوقات المتاحة للطبيب إلى القالب
     return render(request, 'user/available_times.html', {'doctor': doctor, 'available_times': available_times_obj})
 
+<<<<<<< HEAD:vezetadoctor/accounts/views.py
+=======
+
+
+
+
+>>>>>>> a10639cf17b4206131cd7badbfa2bfeb8061a0b7:vezeta/vezetadoctor/accounts/views.py
 # حجز موعد
 @login_required
 def book_appointment(request, slug, appointment_time):
@@ -227,6 +243,13 @@ def book_appointment(request, slug, appointment_time):
 
     return redirect('appointment_confirmation', appointment_id=appointment.id)
 
+<<<<<<< HEAD:vezetadoctor/accounts/views.py
+=======
+
+
+
+
+>>>>>>> a10639cf17b4206131cd7badbfa2bfeb8061a0b7:vezeta/vezetadoctor/accounts/views.py
 # تأكيد الحجز
 @login_required
 def appointment_confirmation(request, appointment_id):
